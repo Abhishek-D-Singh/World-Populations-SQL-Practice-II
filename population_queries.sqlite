@@ -1,0 +1,49 @@
+--Exploring The Database Table countries and population_years.
+SELECT * FROM countries;
+SELECT * FROM population_years;
+
+--Query to find out how many entries in the countries table are from Africa.
+SELECT Count(*) AS COUNT
+FROM countries
+WHERE continent = 'Africa';
+
+--Query to calculate the total population of the continent of Oceania in 2005?
+SELECT SUM(population) AS Total,year,continent
+FROM countries
+JOIN population_years
+ON population_years.country_id = countries.id
+WHERE continent = 'Oceania' AND year = 2005;
+
+--Query to calculate average population of countries in South America in 2003.
+SELECT ROUND(AVG(population),2) AS Average,continent,year
+FROM countries
+JOIN population_years
+ON population_years.country_id = countries.id
+WHERE continent = 'South America' AND year = 2003;
+
+--Query to find out what country had the smallest population in 2007.
+SELECT MIN(population) as smallest,name,continent,year
+FROM countries
+JOIN population_years
+ON population_years.country_id = countries.id
+WHERE year = 2003;
+
+--Query to find out the average population of Poland during the time period covered by this dataset.
+SELECT ROUND(AVG(population),2) AS Average
+FROM countries
+JOIN population_years
+ON population_years.country_id = countries.id
+WHERE name = 'Poland';
+
+--Query to find how many countries have the word “The” in their name.
+SELECT name,count(*) AS Count
+FROM countries
+WHERE name LIKE '%THE%';
+
+--Query to find out the total population of each continent in 2010.
+SELECT ROUND(SUM(population)) AS Total,continent,year
+FROM countries
+JOIN population_years
+ON population_years.country_id = countries.id
+WHERE year = 2010
+GROUP BY continent;
